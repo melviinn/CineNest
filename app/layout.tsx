@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import ThemeProviders from "@/components/ThemeProviders";
+import "dotenv/config";
 import type { Metadata } from "next";
-import { Manrope, Outfit, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Sans, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -31,9 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${manrope.variable} ${outfit.variable} ${ibmPlexSans.variable} antialiased`}>
+      <body
+        className={`${manrope.variable} ${outfit.variable} ${ibmPlexSans.variable} antialiased`}
+      >
         <ThemeProviders>
-
           <Navbar />
           {children}
         </ThemeProviders>

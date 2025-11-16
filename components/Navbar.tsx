@@ -123,13 +123,13 @@ export default function Navbar() {
                 asChild
                 className="text-muted-foreground w-full cursor-pointer"
               >
-                <Link href="/sign-in">Sign In</Link>
+                <Link href="/sign-in">Login</Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 asChild
                 className="text-muted-foreground w-full cursor-pointer"
               >
-                <Link href="/sign-up">Sign Up</Link>
+                <Link href="/sign-up">Register</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

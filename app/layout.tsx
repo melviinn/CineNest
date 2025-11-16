@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import ThemeProviders from "@/components/ThemeProviders";
 import "dotenv/config";
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, Manrope, Outfit } from "next/font/google";
@@ -35,10 +34,8 @@ export default function RootLayout({
       <body
         className={`${manrope.variable} ${outfit.variable} ${ibmPlexSans.variable} antialiased`}
       >
-        <ThemeProviders>
-          <Navbar />
-          {children}
-        </ThemeProviders>
+        <Navbar />
+        {children}
       </body>
     </html>
   );

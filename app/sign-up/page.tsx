@@ -1,11 +1,27 @@
 "use client";
 
-import { signUp } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { useSession } from "@/lib/auth-client";
+import { useState } from "react";
 
-
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 
 export default function SignUp() {
   const router = useRouter();
@@ -13,20 +29,10 @@ export default function SignUp() {
   const { data: session } = useSession();
 
   if (session) {
-    // utilisateur déjà connecté → redirige vers "/"
+    // if the user is already logged in, redirect to home
     router.push("/");
     return null; // ou un loader
   }
-
-  // useEffect(() => {
-  //   if (session) {
-  //     // l'utilisateur est connecté, tu peux le rediriger vers "/" par ex
-  //     router.push("/");
-  //   }
-  //   else {
-  //     return null;
-  //   }
-  // }, [session]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,14 +40,12 @@ export default function SignUp() {
 
     const formData = new FormData(e.currentTarget);
 
-    const res = await signUp.email({
+    const res = await authClient.signUp.email({
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,
       username: formData.get("username") as string,
-      // fields: {
-      //   username: formData.get("username") as string,
-      // },
+      displayUsername: formData.get("username") as string,
     });
 
     if (res.error) {
@@ -51,46 +55,94 @@ export default function SignUp() {
     }
   }
 
+  function SignUpErrorAlertDialog(error: string | null) {
+    return (
+      <AlertDialog
+        open={error ? true : false}
+        onOpenChange={() => setError(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="mb-3 text-xl font-medium">
+              An error just occured
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-red-500">
+              {error}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="cursor-pointer">
+              Return
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-between p-24">
-      <div className="font-manrope z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
-        <h1 className="text-4xl font-bold tracking-tight">Sign Up Page</h1>
-        {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            name="name"
-            placeholder="Full Name"
-            required
-            className="w-full rounded-md border border-neutral-700 px-3 py-2"
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            required
-            className="w-full rounded-md border border-neutral-700 px-3 py-2"
-          />
-          <input
-            name="username"
-            placeholder="Username"
-            required
-            className="w-full rounded-md border border-neutral-700 px-3 py-2"
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            minLength={8}
-            className="w-full rounded-md border border-neutral-700 px-3 py-2"
-          />
-          <button
-            type="submit"
-            className="w-full rounded-md bg-white px-4 py-2 font-medium text-black hover:bg-gray-200"
-          >
-            Create Account
-          </button>
+    <div className="flex flex-col items-center justify-center p-24">
+      <div className="font-manrope z-10 w-full max-w-5xl items-center justify-center text-sm lg:flex">
+        <form onSubmit={handleSubmit} className="w-full max-w-md">
+          <Field>
+            <FieldSet>
+              <FieldLabel className="font-manrope -mb-3 text-3xl font-bold">
+                Create an account
+              </FieldLabel>
+              <FieldDescription className="text-muted-foreground">
+                Fill in the details below to create your account.
+              </FieldDescription>
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="full-name">Full Name</FieldLabel>
+                  <Input
+                    required
+                    id="full-name"
+                    name="name"
+                    type="text"
+                    placeholder="Max Mustermann"
+                  ></Input>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="email@example.com"
+                    required
+                  ></Input>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="username">Username</FieldLabel>
+                  <Input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="your_username"
+                    required
+                  ></Input>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="********"
+                    required
+                  ></Input>
+                </Field>
+                <Field>
+                  <Button type="submit" className="cursor-pointer w-full">
+                    Create my account
+                  </Button>
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+          </Field>
         </form>
+        {SignUpErrorAlertDialog(error)}
       </div>
     </div>
   );

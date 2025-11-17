@@ -1,0 +1,57 @@
+.
+├── (auth)
+│   ├── complete-profile
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   ├── sign-in
+│   │   ├── page.tsx
+│   │   └── sign-in-form.tsx
+│   └── sign-up
+│       ├── page.tsx
+│       └── sign-up-form.tsx
+├── (main)
+│   ├── dashboard
+│   │   └── page.tsx
+│   ├── friends
+│   │   └── page.tsx
+│   ├── home
+│   │   ├── home-page.tsx
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   ├── nests
+│   │   └── page.tsx
+│   ├── profile
+│   │   └── page.tsx
+│   └── settings
+│       └── page.tsx
+├── api
+│   └── auth
+│       └── [...all]
+│           └── route.ts
+├── favicon.ico
+├── generated
+│   └── prisma
+│       ├── browser.ts
+│       ├── client.ts
+│       ├── commonInputTypes.ts
+│       ├── enums.ts
+│       ├── internal
+│       │   ├── class.ts
+│       │   ├── prismaNamespace.ts
+│       │   └── prismaNamespaceBrowser.ts
+│       ├── models
+│       │   ├── Category.ts
+│       │   ├── Friend.ts
+│       │   ├── Movie.ts
+│       │   ├── Nest.ts
+│       │   ├── NestMovie.ts
+│       │   ├── NestShare.ts
+│       │   └── User.ts
+│       └── models.ts
+├── globals.css
+├── home-page.tsx
+├── layout.tsx
+├── page.tsx
+└── tree.txt
+
+19 directories, 36 files

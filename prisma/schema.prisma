@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  name          String?  @unique
+  firstName     String?
+  lastName      String?
+  password      String?
+  image         String?
+  updatedAt     DateTime @default(now()) @updatedAt
+
+  friends   Friend[] @relation("UserFriends_user")
+  friendsOf Friend[] @relation("UserFriends_friends")
+
+  nests       Nest[]      @relation("UserNests")
+  sharedNests NestShare[]
+  sessions    Session[]
+  accounts    Account[]
+
+  @@map("user")
+}
+
+model Friend {
+  id Int @id @default(autoincrement())
+
+  user   User   @relation("UserFriends_user", fields: [userId], references: [id])
+  userId String
+
+  friend    User         @relation("UserFriends_friends", fields: [friendId], references: [id])
+  friendId  String
+  status    FriendStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+}
+
+enum FriendStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+model Movie {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  releaseDate DateTime?
+  createdAt   DateTime  @default(now())
+
+  categories Category[]
+  nestMovie  NestMovie[]
+}
+
+model Category {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  movies Movie[]
+}
+
+model Nest {
+  id         Int         @id @default(autoincrement())
+  name       String
+  createdAt  DateTime    @default(now())
+  owner      User        @relation("UserNests", fields: [ownerId], references: [id])
+  ownerId    String
+  movies     NestMovie[]
+  sharedWith NestShare[]
+}
+
+model NestMovie {
+  id      Int         @id @default(autoincrement())
+  nest    Nest        @relation(fields: [nestId], references: [id])
+  nestId  Int
+  movie   Movie       @relation(fields: [movieId], references: [id])
+  movieId Int
+  status  MovieStatus @default(UNWATCHED)
+  addedAt DateTime    @default(now())
+}
+
+enum MovieStatus {
+  UNWATCHED
+  WATCHING
+  WATCHED
+  ABANDONED
+}
+
+model NestShare {
+  id     Int    @id @default(autoincrement())
+  nest   Nest   @relation(fields: [nestId], references: [id])
+  nestId Int
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  canEdit  Boolean  @default(false)
+  sharedAt DateTime @default(now())
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
+}

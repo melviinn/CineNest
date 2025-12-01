@@ -46,7 +46,12 @@ export default function AddFriendButton({
   };
 
   return (
-    <Button onClick={handleAddFriend} disabled={loading} variant="outline">
+    <Button
+      onClick={handleAddFriend}
+      disabled={loading}
+      variant="outline"
+      className="border-border hover:bg-secondary gap-2 rounded-xl bg-transparent"
+    >
       {loading ? "Adding..." : "Add a Friend"}
     </Button>
   );

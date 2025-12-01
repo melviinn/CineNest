@@ -19,5 +19,5 @@ export default async function NestCardServer({
   shared,
 }: NestCardServerProps) {
   const enrichedNest = await enrichNestWithStats(nest);
-  return <NestCard nest={enrichedNest} shared={shared} />;
+  return <NestCard nest={enrichedNest} shared={shared} key={nest.id} />;
 }

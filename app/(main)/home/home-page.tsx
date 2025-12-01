@@ -1,5 +1,4 @@
-import NestsView from "@/components/Nests/NestsView";
-import NestsViewServer from "@/components/Nests/NestsViewServer";
+import NestsViewWrapper from "@/components/Nests/NestsViewWrapper";
 import { prisma } from "@/lib/prisma";
 import { getServerAuth } from "@/lib/session";
 import { redirect } from "next/navigation";
@@ -30,7 +29,7 @@ export async function HomePage() {
   return (
     <main className="flex w-full flex-col items-center p-12 px-2 md:p-20">
       <div className="font-manrope w-full text-sm lg:flex lg:flex-col">
-        <NestsViewServer user={dbUser} />
+        <NestsViewWrapper user={dbUser} />
       </div>
     </main>
   );

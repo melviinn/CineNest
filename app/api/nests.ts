@@ -1,4 +1,3 @@
-// pages/api/nests.ts
 import { getUserNestsData } from "@/lib/nest-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 

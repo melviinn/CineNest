@@ -45,7 +45,11 @@ export default function AddMovieButton({
   };
 
   return (
-    <Button onClick={handleAddMovie} disabled={loading} variant="outline" >
+    <Button
+      onClick={handleAddMovie}
+      disabled={loading}
+      className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20 gap-2 rounded-xl shadow-lg"
+    >
       {loading ? "Adding..." : "Add a Movie"}
     </Button>
   );

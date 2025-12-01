@@ -49,7 +49,13 @@ const getNestDetails = async (nestId: number) => {
     },
   });
 
-  const nestMovies = nest?.movies?.map((nm) => nm.movie) || [];
+  const nestMovies =
+    nest?.movies.map((nm) => ({
+      ...nm.movie,
+      status: nm.status,
+      nestMovieId: nm.id, // utile si besoin de modifier le status
+      addedAt: nm.addedAt,
+    })) || [];
 
   const nestFriends = nest?.sharedWith?.map((nf) => nf.user) || [];
 

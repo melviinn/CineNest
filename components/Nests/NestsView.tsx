@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { memo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { Card } from "../ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import {
   Form,
@@ -169,11 +168,11 @@ const NestList = memo(
     }
 
     return (
-      <Card className="mt-4 flex w-full flex-row flex-wrap gap-4 p-4">
+      <div className="mt-4 flex w-full flex-row flex-wrap gap-4 p-4">
         {nests.map((nest) => (
           <NestCard key={nest.nestId} nest={nest} user={user} shared={shared} />
         ))}
-      </Card>
+      </div>
     );
   }
 );

@@ -35,7 +35,7 @@ const Navbar = ({ user }: NavbarProps) => {
   ];
 
   return (
-    <header className="flex w-full items-center justify-between px-8 py-4">
+    <header className="flex w-full items-center justify-between px-8 py-4 shadow-sm">
       <div className="pointer-events-none flex items-center space-x-1">
         <Image
           src={CineNestLogo}

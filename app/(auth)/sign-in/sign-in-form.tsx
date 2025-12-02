@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 // UI components
 import LoadingButton from "@/components/LoadingButton";
@@ -32,23 +31,20 @@ import { toast } from "sonner";
 
 // Social media icons
 import { PasswordInput } from "@/components/PasswordInput";
+import { signInFormSchema, SignInFormType } from "@/lib/zod/zodAuthSchemas";
 import GithubIcon from "@/public/github.svg";
 import GoogleIcon from "@/public/google.png";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // Zod schema for sign-in form validation
-const signInFormSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-});
-
-type SignInFormData = z.infer<typeof signInFormSchema>;
 
 export function SignInForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const form = useForm<SignInFormData>({
+  const form = useForm<SignInFormType>({
+    resolver: zodResolver(signInFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -56,7 +52,7 @@ export function SignInForm() {
   });
 
   // Handle form submission for sign-in
-  async function onSubmit({ email, password }: SignInFormData) {
+  async function onSubmit({ email, password }: SignInFormType) {
     setError(null);
     setLoading(true);
 
@@ -66,7 +62,6 @@ export function SignInForm() {
     });
 
     setLoading(false);
-
 
     if (error) {
       setError(error.message || "Something went wrong.");

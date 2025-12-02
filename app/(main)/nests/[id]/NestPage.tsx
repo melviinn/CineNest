@@ -1,12 +1,14 @@
 "use client";
 
-import useSWR from "swr";
-
 import { MoviesList } from "@/components/Nests/MoviesList";
+import { addNestMovieSchema, AddNestMovieType } from "@/lib/zod/zodSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import AddFriendButton from "./AddFriendButton";
-import AddMovieButton from "./AddMovieButton";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import AddFriendForm from "./addFriendForm";
+import AddMovieForm from "./addMovieForm";
 
 type NestPageInfosProps = {
   nestId: number;
@@ -16,9 +18,6 @@ type NestPageInfosProps = {
   isOwner: boolean;
 };
 
-const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((res) => res.json());
-
 export default function NestPageInfos({
   nestId,
   initialNest,
@@ -26,16 +25,16 @@ export default function NestPageInfos({
   initialFriends,
   isOwner,
 }: NestPageInfosProps) {
-  const { data, error, mutate } = useSWR(`/nests/${nestId}`, fetcher, {
-    fallbackData: {
-      nest: initialNest,
-      movies: initialMovies,
-      friends: initialFriends,
-    },
-    revalidateOnFocus: false,
-  });
+  const [nest] = useState(initialNest);
+  const [movies, setMovies] = useState(initialMovies);
+  const [friends, setFriends] = useState(initialFriends);
 
-  const { nest, movies, friends } = data;
+  const form = useForm<AddNestMovieType>({
+    resolver: zodResolver(addNestMovieSchema),
+    defaultValues: {
+      title: "",
+    },
+  });
 
   return (
     <main className="container mx-auto px-6 py-12">
@@ -59,16 +58,17 @@ export default function NestPageInfos({
         </p>
         {isOwner && (
           <div className="flex items-center gap-4">
-            <AddMovieButton
+            <AddMovieForm
               nestId={nestId}
-              isOwner={isOwner}
-              onAdded={(newData) => mutate(newData)}
+              onMovieAdded={(movie) => setMovies((prev) => [movie, ...prev])}
             />
-            <AddFriendButton
+            <AddFriendForm
               nestId={nestId}
-              isOwner={isOwner}
-              onAdded={(newData) => mutate(newData)}
+              onFriendAdded={(friend) =>
+                setFriends((prev) => [friend, ...prev])
+              }
             />
+            {/* <AddFriendButton nestId={nestId} isOwner={isOwner} /> */}
           </div>
         )}
       </div>
@@ -77,10 +77,7 @@ export default function NestPageInfos({
         <h2 className="mb-6 text-2xl font-semibold tracking-tight">
           Movies in this nest:
         </h2>
-        <MoviesList
-          movies={movies}
-          nestId={nestId}
-        />
+        <MoviesList movies={movies} nestId={nestId} />
       </section>
 
       <section>

@@ -1,6 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import { getServerAuth } from "@/lib/session";
-import { redirect } from "next/navigation";
+import { getNestDetails } from "@/app/data/nests/get-nests";
+import { requireUser } from "@/lib/session";
 import NestPageInfos from "./NestPage";
 
 export default async function NestPage({
@@ -8,12 +7,8 @@ export default async function NestPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { user } = await getServerAuth();
+  const user = await requireUser();
   const { id } = await params;
-
-  if (!user) {
-    redirect("/sign-in");
-  }
 
   const nestId = Number(id);
 
@@ -34,30 +29,3 @@ export default async function NestPage({
     />
   );
 }
-
-const getNestDetails = async (nestId: number) => {
-  const nest = await prisma.nest.findUnique({
-    where: { id: nestId },
-    include: {
-      owner: true,
-      movies: {
-        include: { movie: true },
-      },
-      sharedWith: {
-        include: { user: true },
-      },
-    },
-  });
-
-  const nestMovies =
-    nest?.movies.map((nm) => ({
-      ...nm.movie,
-      status: nm.status,
-      nestMovieId: nm.id, // utile si besoin de modifier le status
-      addedAt: nm.addedAt,
-    })) || [];
-
-  const nestFriends = nest?.sharedWith?.map((nf) => nf.user) || [];
-
-  return { nest, nestMovies, nestFriends };
-};

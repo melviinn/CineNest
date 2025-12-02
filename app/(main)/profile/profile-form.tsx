@@ -19,38 +19,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { authClient } from "@/lib/auth-client";
+import {
+  updateProfileFormSchema,
+  UpdateProfileType,
+} from "@/lib/zod/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PenLine } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import * as z from "zod";
 import { updateUserNameFields } from "./actions";
 
-const updateProfileFormSchema = z.object({
-  name: z.string().optional(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  email: z.string().optional(),
-  image: z.string().optional(),
-});
-
 type User = {
-  id: string;
-  name: string | null;
-  email: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  image: string | null;
+  user: {
+    id: string;
+    name: string | null;
+    email: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    image: string | null;
+  };
 };
 
-type Props = {
-  user: User;
-};
-
-export type UpdateProfileData = z.infer<typeof updateProfileFormSchema>;
-
-const ProfileForm = ({ user }: Props) => {
+const ProfileForm = ({ user }: User) => {
   const form = useForm({
     resolver: zodResolver(updateProfileFormSchema),
     defaultValues: {
@@ -64,7 +55,7 @@ const ProfileForm = ({ user }: Props) => {
 
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (data: UpdateProfileData) => {
+  const onSubmit = async (data: UpdateProfileType) => {
     setLoading(true);
 
     // Username validation > check if username is already taken
@@ -216,10 +207,6 @@ const ProfileForm = ({ user }: Props) => {
                         type="file"
                         id="avatar-image"
                         className="cursor-pointer placeholder:text-xs md:placeholder:text-sm"
-                        // onChange={(e) => {
-                        //   const file = e.target.files?.[0] || null;
-                        //   field.onChange(file);
-                        // }}
                       />
                     </FormControl>
                     <FormMessage />

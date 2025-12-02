@@ -11,6 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -76,6 +77,7 @@ model Nest {
   name       String
   createdAt  DateTime    @default(now())
   owner      User        @relation("UserNests", fields: [ownerId], references: [id])
+  imageUrl   String?
   ownerId    String
   movies     NestMovie[]
   sharedWith NestShare[]

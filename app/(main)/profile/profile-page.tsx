@@ -1,31 +1,11 @@
 import { Separator } from "@/components/ui/separator";
-import { getAuth } from "@/lib/session";
+import { getAuth, getServerAuth, requireUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import * as z from "zod";
 import ProfileForm from "./profile-form";
 
-const updateProfileFormSchema = z.object({
-  name: z.string().optional(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  email: z.string().optional(),
-});
-
-type UpdateProfileFormData = z.infer<typeof updateProfileFormSchema>;
-
-type Props = {
-  user: {
-    id: string;
-    name: string | null;
-    email: string | null;
-    firstName: string | null;
-    lastName: string | null;
-    image: string | null;
-  };
-};
-
 const ProfilePage = async () => {
-  const { user } = await getAuth();
+  const { user } = await getServerAuth();
 
   if (!user) {
     redirect("/sign-in");

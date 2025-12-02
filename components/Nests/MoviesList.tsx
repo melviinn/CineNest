@@ -1,7 +1,7 @@
 "use client";
 
 import { Film } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -17,6 +17,10 @@ type MoviesListProps = {
 
 export function MoviesList({ movies, nestId }: MoviesListProps) {
   const [moviesData, setMoviesData] = useState(movies);
+
+  useEffect(() => {
+    setMoviesData(movies);
+  }, [movies]);
 
   const changeStatus = async (movie: any, newStatus: string) => {
     try {

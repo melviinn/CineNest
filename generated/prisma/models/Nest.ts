@@ -8,7 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/client"
+import type * as runtime from "@prisma/client/runtime/library"
 import type * as $Enums from "../enums"
 import type * as Prisma from "../internal/prismaNamespace"
 
@@ -38,6 +38,7 @@ export type NestMinAggregateOutputType = {
   id: number | null
   name: string | null
   createdAt: Date | null
+  imageUrl: string | null
   ownerId: string | null
 }
 
@@ -45,6 +46,7 @@ export type NestMaxAggregateOutputType = {
   id: number | null
   name: string | null
   createdAt: Date | null
+  imageUrl: string | null
   ownerId: string | null
 }
 
@@ -52,6 +54,7 @@ export type NestCountAggregateOutputType = {
   id: number
   name: number
   createdAt: number
+  imageUrl: number
   ownerId: number
   _all: number
 }
@@ -69,6 +72,7 @@ export type NestMinAggregateInputType = {
   id?: true
   name?: true
   createdAt?: true
+  imageUrl?: true
   ownerId?: true
 }
 
@@ -76,6 +80,7 @@ export type NestMaxAggregateInputType = {
   id?: true
   name?: true
   createdAt?: true
+  imageUrl?: true
   ownerId?: true
 }
 
@@ -83,6 +88,7 @@ export type NestCountAggregateInputType = {
   id?: true
   name?: true
   createdAt?: true
+  imageUrl?: true
   ownerId?: true
   _all?: true
 }
@@ -177,6 +183,7 @@ export type NestGroupByOutputType = {
   id: number
   name: string
   createdAt: Date
+  imageUrl: string | null
   ownerId: string
   _count: NestCountAggregateOutputType | null
   _avg: NestAvgAggregateOutputType | null
@@ -207,6 +214,7 @@ export type NestWhereInput = {
   id?: Prisma.IntFilter<"Nest"> | number
   name?: Prisma.StringFilter<"Nest"> | string
   createdAt?: Prisma.DateTimeFilter<"Nest"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Nest"> | string | null
   ownerId?: Prisma.StringFilter<"Nest"> | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   movies?: Prisma.NestMovieListRelationFilter
@@ -217,6 +225,7 @@ export type NestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   movies?: Prisma.NestMovieOrderByRelationAggregateInput
@@ -230,6 +239,7 @@ export type NestWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.NestWhereInput | Prisma.NestWhereInput[]
   name?: Prisma.StringFilter<"Nest"> | string
   createdAt?: Prisma.DateTimeFilter<"Nest"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Nest"> | string | null
   ownerId?: Prisma.StringFilter<"Nest"> | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   movies?: Prisma.NestMovieListRelationFilter
@@ -240,6 +250,7 @@ export type NestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   _count?: Prisma.NestCountOrderByAggregateInput
   _avg?: Prisma.NestAvgOrderByAggregateInput
@@ -255,12 +266,14 @@ export type NestScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Nest"> | number
   name?: Prisma.StringWithAggregatesFilter<"Nest"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Nest"> | Date | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Nest"> | string | null
   ownerId?: Prisma.StringWithAggregatesFilter<"Nest"> | string
 }
 
 export type NestCreateInput = {
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   owner: Prisma.UserCreateNestedOneWithoutNestsInput
   movies?: Prisma.NestMovieCreateNestedManyWithoutNestInput
   sharedWith?: Prisma.NestShareCreateNestedManyWithoutNestInput
@@ -270,6 +283,7 @@ export type NestUncheckedCreateInput = {
   id?: number
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   ownerId: string
   movies?: Prisma.NestMovieUncheckedCreateNestedManyWithoutNestInput
   sharedWith?: Prisma.NestShareUncheckedCreateNestedManyWithoutNestInput
@@ -278,6 +292,7 @@ export type NestUncheckedCreateInput = {
 export type NestUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutNestsNestedInput
   movies?: Prisma.NestMovieUpdateManyWithoutNestNestedInput
   sharedWith?: Prisma.NestShareUpdateManyWithoutNestNestedInput
@@ -287,6 +302,7 @@ export type NestUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   movies?: Prisma.NestMovieUncheckedUpdateManyWithoutNestNestedInput
   sharedWith?: Prisma.NestShareUncheckedUpdateManyWithoutNestNestedInput
@@ -296,18 +312,21 @@ export type NestCreateManyInput = {
   id?: number
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   ownerId: string
 }
 
 export type NestUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NestUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -325,6 +344,7 @@ export type NestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
 }
 
@@ -336,6 +356,7 @@ export type NestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
 }
 
@@ -343,6 +364,7 @@ export type NestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
 }
 
@@ -428,6 +450,7 @@ export type NestUpdateOneRequiredWithoutSharedWithNestedInput = {
 export type NestCreateWithoutOwnerInput = {
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   movies?: Prisma.NestMovieCreateNestedManyWithoutNestInput
   sharedWith?: Prisma.NestShareCreateNestedManyWithoutNestInput
 }
@@ -436,6 +459,7 @@ export type NestUncheckedCreateWithoutOwnerInput = {
   id?: number
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   movies?: Prisma.NestMovieUncheckedCreateNestedManyWithoutNestInput
   sharedWith?: Prisma.NestShareUncheckedCreateNestedManyWithoutNestInput
 }
@@ -473,12 +497,14 @@ export type NestScalarWhereInput = {
   id?: Prisma.IntFilter<"Nest"> | number
   name?: Prisma.StringFilter<"Nest"> | string
   createdAt?: Prisma.DateTimeFilter<"Nest"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Nest"> | string | null
   ownerId?: Prisma.StringFilter<"Nest"> | string
 }
 
 export type NestCreateWithoutMoviesInput = {
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   owner: Prisma.UserCreateNestedOneWithoutNestsInput
   sharedWith?: Prisma.NestShareCreateNestedManyWithoutNestInput
 }
@@ -487,6 +513,7 @@ export type NestUncheckedCreateWithoutMoviesInput = {
   id?: number
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   ownerId: string
   sharedWith?: Prisma.NestShareUncheckedCreateNestedManyWithoutNestInput
 }
@@ -510,6 +537,7 @@ export type NestUpdateToOneWithWhereWithoutMoviesInput = {
 export type NestUpdateWithoutMoviesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutNestsNestedInput
   sharedWith?: Prisma.NestShareUpdateManyWithoutNestNestedInput
 }
@@ -518,6 +546,7 @@ export type NestUncheckedUpdateWithoutMoviesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   sharedWith?: Prisma.NestShareUncheckedUpdateManyWithoutNestNestedInput
 }
@@ -525,6 +554,7 @@ export type NestUncheckedUpdateWithoutMoviesInput = {
 export type NestCreateWithoutSharedWithInput = {
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   owner: Prisma.UserCreateNestedOneWithoutNestsInput
   movies?: Prisma.NestMovieCreateNestedManyWithoutNestInput
 }
@@ -533,6 +563,7 @@ export type NestUncheckedCreateWithoutSharedWithInput = {
   id?: number
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
   ownerId: string
   movies?: Prisma.NestMovieUncheckedCreateNestedManyWithoutNestInput
 }
@@ -556,6 +587,7 @@ export type NestUpdateToOneWithWhereWithoutSharedWithInput = {
 export type NestUpdateWithoutSharedWithInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutNestsNestedInput
   movies?: Prisma.NestMovieUpdateManyWithoutNestNestedInput
 }
@@ -564,6 +596,7 @@ export type NestUncheckedUpdateWithoutSharedWithInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   movies?: Prisma.NestMovieUncheckedUpdateManyWithoutNestNestedInput
 }
@@ -572,11 +605,13 @@ export type NestCreateManyOwnerInput = {
   id?: number
   name: string
   createdAt?: Date | string
+  imageUrl?: string | null
 }
 
 export type NestUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   movies?: Prisma.NestMovieUpdateManyWithoutNestNestedInput
   sharedWith?: Prisma.NestShareUpdateManyWithoutNestNestedInput
 }
@@ -585,6 +620,7 @@ export type NestUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   movies?: Prisma.NestMovieUncheckedUpdateManyWithoutNestNestedInput
   sharedWith?: Prisma.NestShareUncheckedUpdateManyWithoutNestNestedInput
 }
@@ -593,6 +629,7 @@ export type NestUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -639,6 +676,7 @@ export type NestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   createdAt?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   movies?: boolean | Prisma.Nest$moviesArgs<ExtArgs>
@@ -650,6 +688,7 @@ export type NestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   createdAt?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["nest"]>
@@ -658,6 +697,7 @@ export type NestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   createdAt?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["nest"]>
@@ -666,10 +706,11 @@ export type NestSelectScalar = {
   id?: boolean
   name?: boolean
   createdAt?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
 }
 
-export type NestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "ownerId", ExtArgs["result"]["nest"]>
+export type NestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "imageUrl" | "ownerId", ExtArgs["result"]["nest"]>
 export type NestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   movies?: boolean | Prisma.Nest$moviesArgs<ExtArgs>
@@ -694,6 +735,7 @@ export type $NestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     name: string
     createdAt: Date
+    imageUrl: string | null
     ownerId: string
   }, ExtArgs["result"]["nest"]>
   composites: {}
@@ -1124,6 +1166,7 @@ export interface NestFieldRefs {
   readonly id: Prisma.FieldRef<"Nest", 'Int'>
   readonly name: Prisma.FieldRef<"Nest", 'String'>
   readonly createdAt: Prisma.FieldRef<"Nest", 'DateTime'>
+  readonly imageUrl: Prisma.FieldRef<"Nest", 'String'>
   readonly ownerId: Prisma.FieldRef<"Nest", 'String'>
 }
     

@@ -1,14 +1,10 @@
 import NestsViewWrapper from "@/components/Nests/NestsViewWrapper";
-import { prisma } from "@/lib/prisma";
-import { getServerAuth } from "@/lib/session";
+import { requireUser } from "@/lib/session";
+import { getUserById } from "@/lib/user/user";
 import { redirect } from "next/navigation";
 
 export async function HomePage() {
-  const { user } = await getServerAuth();
-
-  if (!user) {
-    redirect("/sign-in");
-  }
+  const user = await requireUser();
 
   if (user) {
     if (!user.name || user.name.trim() === "") {
@@ -16,15 +12,7 @@ export async function HomePage() {
     }
   }
 
-  const dbUser = await prisma.user.findUnique({
-    where: { id: user.id },
-    include: {
-      nests: true,
-      sharedNests: {
-        include: { nest: true },
-      },
-    },
-  });
+  const dbUser = await getUserById(user.id);
 
   return (
     <main className="flex w-full flex-col items-center p-12 px-2 md:p-20">

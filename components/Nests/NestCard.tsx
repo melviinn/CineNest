@@ -4,7 +4,6 @@ import SinisterImage from "@/public/sinister.jpg";
 import { Film, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Card, CardFooter, CardHeader } from "../ui/card";
 
 interface NestCardProps {
@@ -21,18 +20,10 @@ interface NestCardProps {
 }
 
 const NestCard = ({ nest, shared, user }: NestCardProps) => {
-  const [open, setOpen] = useState(false);
-
-  const onHoverMembers = () => {
-    setOpen(true);
-  };
-
   if (!nest) return null;
   if (!user) return null;
 
-  if (nest.owner === user.name) {
-    nest.owner = "you";
-  }
+  const isOwner = nest.owner === user.name;
 
   return (
     <Link
@@ -60,7 +51,11 @@ const NestCard = ({ nest, shared, user }: NestCardProps) => {
             <h3 className="text-foreground text-lg font-medium transition-colors">
               {nest.title}
             </h3>
-            <p className="text-muted-foreground text-sm">by {nest.owner}</p>
+            {isOwner ? (
+              ""
+            ) : (
+              <p className="text-muted-foreground text-sm">by {nest.owner}</p>
+            )}
           </div>
 
           <div className="text-muted-foreground flex gap-4 text-sm">

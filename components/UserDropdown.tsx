@@ -2,7 +2,7 @@
 
 // Necessary modules
 import { authClient } from "@/lib/auth-client";
-import { LogOut, Settings, UserRound } from "lucide-react";
+import { LogOut, Settings, User, UserRound } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -48,7 +48,9 @@ const UserDropdown = ({ user }: { user: any }) => {
             src={user.image || "https://github.com/shadcn.png"}
             alt="@user"
           />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            <UserRound size={17} />
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

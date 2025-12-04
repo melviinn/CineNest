@@ -90,10 +90,10 @@ const ProfileForm = ({ user }: User) => {
         firstName: data.firstName,
         lastName: data.lastName,
       });
-      toast.success("Profile updated successfully");
+      toast.success("Profile updated successfully", { position: "top-center" });
     } catch (err) {
       console.error(err);
-      toast.error("Failed to update your profile");
+      toast.error("Failed to update your profile", { position: "top-center" });
     } finally {
       setLoading(false);
     }

@@ -19,6 +19,7 @@ import {
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import NestCard from "./NestCard";
+import { toast } from "sonner";
 
 // -------------------
 // Composant principal
@@ -39,6 +40,10 @@ export default function NestsView({
     setNests((prev) => [...prev, newNest]);
   };
 
+  const handleRemoveNest = (id: number) => {
+    setNests((prev) => prev.filter((n) => n.nestId !== id));
+  };
+
   return (
     <div className="flex flex-col items-start space-y-8">
       {/* Mes Nests */}
@@ -54,7 +59,7 @@ export default function NestsView({
           My Nests
         </h1>
         <Separator />
-        <NestList nests={nests} user={user} />
+        <NestList nests={nests} user={user} onRemove={handleRemoveNest} />
       </div>
 
       {/* Shared Nests */}
@@ -63,7 +68,7 @@ export default function NestsView({
           Shared Nests
         </h1>
         <Separator />
-        <NestList nests={shared} user={user} shared />
+        <NestList nests={shared} user={user} shared onRemove={handleRemoveNest} />
       </div>
     </div>
   );
@@ -108,6 +113,7 @@ function CreateNestDialog({
 
         form.reset();
         setOpen(false);
+        toast.success("Nest created successfully.", { position: "top-center" });
       } catch (error) {
         console.error(error);
       }
@@ -160,7 +166,7 @@ function CreateNestDialog({
 // Composant pour afficher une liste de Nests
 // ------------------------------------------
 const NestList = memo(
-  ({ nests, user, shared }: { nests: any[]; user: any; shared?: boolean }) => {
+  ({ nests, user, shared, onRemove }: { nests: any[]; user: any; shared?: boolean, onRemove: any }) => {
     if (nests.length === 0) {
       return (
         <p>{shared ? "No shared nests yet." : "You have no nests yet."}</p>
@@ -168,9 +174,9 @@ const NestList = memo(
     }
 
     return (
-      <div className="mt-4 flex w-full flex-row flex-wrap gap-4 p-4">
+      <div className="mt-4 flex w-full flex-row flex-wrap justify-start gap-10 p-4">
         {nests.map((nest) => (
-          <NestCard key={nest.nestId} nest={nest} user={user} shared={shared} />
+          <NestCard key={nest.nestId} nest={nest} user={user} shared={shared} onRemove={onRemove} />
         ))}
       </div>
     );

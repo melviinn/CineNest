@@ -60,7 +60,7 @@ export default function AddFriendForm({
 
         onFriendAdded(newFriend);
 
-        toast.success("Friend added successfully to the Nest!");
+        toast.success("Friend added successfully to the Nest!", { position: "top-center" });
         form.reset();
         setOpen(false);
         setLoading(false);

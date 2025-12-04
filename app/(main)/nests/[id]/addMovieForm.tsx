@@ -57,7 +57,7 @@ export default function AddMovieForm({
 
         onMovieAdded(newMovie);
 
-        toast.success("Movie added successfully!");
+        toast.success("Movie added successfully!", { position: "top-center" });
         form.reset();
         setOpen(false);
         setLoading(false);

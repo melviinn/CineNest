@@ -21,6 +21,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -70,8 +71,8 @@ export function SignInForm() {
       // }
       form.reset();
     } else {
-      toast.success("Successfully signed in!");
       router.push("/home");
+      toast.success("Successfully signed in!", { position: "top-center" });
     }
   }
 
@@ -88,8 +89,10 @@ export function SignInForm() {
     setLoading(false);
 
     if (error) {
-      toast.error("Social sign-in failed.");
+      toast.error("Social sign-in failed." + (error.message || ""), { position: "top-center" });
       setError(error.message || "Something went wrong.");
+    } else {
+      toast.success("Successfully signed in!", { position: "top-center" });
     }
   }
 
@@ -170,15 +173,19 @@ export function SignInForm() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel htmlFor="password-input">Password</FormLabel>
                       <FormControl>
                         <PasswordInput
                           autoComplete="current-password"
+                          id="password-input"
                           placeholder="********"
                           className={`placeholder:text-xs md:placeholder:text-sm ${error ? "border-destructive" : ""}`}
                           {...field}
                         />
                       </FormControl>
+                      <FormDescription className="cursor-pointer text-right hover:underline">
+                        Forgot password?
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

@@ -85,7 +85,7 @@ model Nest {
 
 model NestMovie {
   id      Int         @id @default(autoincrement())
-  nest    Nest        @relation(fields: [nestId], references: [id])
+  nest    Nest        @relation(fields: [nestId], references: [id], onDelete: Cascade)
   nestId  Int
   movie   Movie       @relation(fields: [movieId], references: [id])
   movieId Int
@@ -102,7 +102,7 @@ enum MovieStatus {
 
 model NestShare {
   id     Int    @id @default(autoincrement())
-  nest   Nest   @relation(fields: [nestId], references: [id])
+  nest   Nest   @relation(fields: [nestId], references: [id], onDelete: Cascade)
   nestId Int
   user   User   @relation(fields: [userId], references: [id])
   userId String

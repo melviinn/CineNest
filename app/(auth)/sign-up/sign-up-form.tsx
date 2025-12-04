@@ -79,7 +79,7 @@ export function SignUpForm() {
       return;
     }
 
-    toast.success("Account created successfully!");
+    toast.success("Account created successfully!", { position: "top-center" });
     router.push("/home");
   }
 

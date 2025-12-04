@@ -1,8 +1,15 @@
 "use client";
 
-import { Film } from "lucide-react";
+import {
+  CheckCircleIcon,
+  Film,
+  TicketCheck,
+  TicketMinus,
+  TicketSlash,
+  TicketX,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +20,18 @@ import {
 type MoviesListProps = {
   movies: any[];
   nestId: number;
+};
+
+const BadgeSuccess = () => {
+  return (
+    <Badge
+      variant="outline"
+      className="rounded-sm border-green-600 text-green-600 dark:border-green-400 dark:text-green-400 [a&]:hover:bg-green-600/10 [a&]:hover:text-green-600/90 dark:[a&]:hover:bg-green-400/10 dark:[a&]:hover:text-green-400/90"
+    >
+      <CheckCircleIcon className="size-3" />
+      Successful
+    </Badge>
+  );
 };
 
 export function MoviesList({ movies, nestId }: MoviesListProps) {
@@ -49,17 +68,32 @@ export function MoviesList({ movies, nestId }: MoviesListProps) {
   const statusButtonClass = (status: string) => {
     switch (status) {
       case "WATCHED":
-        return "bg-green-700 transition-colors hover:bg-green-700/70";
+        return "bg-green-700 transition-colors hover:bg-green-700/70 min-w-28 [&_svg]:size-4";
       case "ABANDONED":
-        return "bg-red-700 transition-colors hover:bg-red-700/70";
+        return "bg-red-700 transition-colors hover:bg-red-700/70 min-w-28 [&_svg]:size-4";
       case "WATCHING":
-        return "bg-yellow-700 transition-colors hover:bg-yellow-700/70";
+        return "bg-yellow-700 transition-colors hover:bg-yellow-700/70 min-w-28 [&_svg]:size-4";
       case "UNWATCHED":
-        return "bg-gray-600/70 transition-colors hover:bg-gray-600/50";
+        return "bg-gray-600/70 transition-colors hover:bg-gray-600/50 min-w-28 [&_svg]:size-4";
       default:
-        return "bg-gray-600/70 transition-colors hover:bg-gray-600/50";
+        return "bg-gray-600/70 transition-colors hover:bg-gray-600/50 min-w-28 [&_svg]:size-4";
     }
   };
+
+  function getStatusBadgeIcon(status: string) {
+    switch (status) {
+      case "WATCHED":
+        return <TicketCheck size={40} className="h-20 w-20" />;
+      case "ABANDONED":
+        return <TicketX />;
+      case "WATCHING":
+        return <TicketMinus />;
+      case "UNWATCHED":
+        return <TicketSlash />;
+      default:
+        return <TicketSlash />;
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -77,12 +111,11 @@ export function MoviesList({ movies, nestId }: MoviesListProps) {
             <div className="absolute top-1/2 right-10 -translate-y-1/2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild className="cursor-pointer">
-                  <Button
-                    size="sm"
-                    className={` ${statusButtonClass(movie.status)} + " min-w-[85px]"`}
-                  >
-                    <span className="text-xs lowercase">{movie.status}</span>
-                  </Button>
+                  <Badge className={statusButtonClass(movie.status)}>
+                    {getStatusBadgeIcon(movie.status)}
+                    {movie.status.toUpperCase().charAt(0) +
+                      movie.status.slice(1).toLowerCase()}
+                  </Badge>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   {["WATCHED", "WATCHING", "ABANDONED", "UNWATCHED"].map(

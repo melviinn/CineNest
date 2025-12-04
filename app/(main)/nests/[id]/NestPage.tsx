@@ -1,6 +1,7 @@
 "use client";
 
 import { MoviesList } from "@/components/Nests/MoviesList";
+import { Badge } from "@/components/ui/badge";
 import { addNestMovieSchema, AddNestMovieType } from "@/lib/zod/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
@@ -68,7 +69,6 @@ export default function NestPageInfos({
                 setFriends((prev) => [friend, ...prev])
               }
             />
-            {/* <AddFriendButton nestId={nestId} isOwner={isOwner} /> */}
           </div>
         )}
       </div>
@@ -86,12 +86,12 @@ export default function NestPageInfos({
         </h2>
         <div className="flex flex-wrap gap-3">
           {friends.map((friend: any) => (
-            <div
-              key={friend.id}
-              className="bg-card border-border text-card-foreground hover:border-primary/30 rounded-xl border px-4 py-2 text-sm font-medium transition-colors"
+            <Badge
+              className="bg-card border-border text-card-foreground p-3 px-4"
+              key={friend.name}
             >
               {friend.name}
-            </div>
+            </Badge>
           ))}
         </div>
       </section>

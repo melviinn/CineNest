@@ -21,6 +21,8 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
+import { MovieStatus } from "@/generated/prisma/enums";
+
 type MoviesListProps = {
   movies: any[];
   nestId: number;
@@ -140,7 +142,7 @@ export function MoviesList({ movies, nestId, user }: MoviesListProps) {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                  {["WATCHED", "WATCHING", "ABANDONED", "UNWATCHED"].map(
+                  {/* {["WATCHED", "WATCHING", "ABANDONED", "UNWATCHED"].map(
                     (s) => (
                       <DropdownMenuItem
                         key={s}
@@ -151,7 +153,17 @@ export function MoviesList({ movies, nestId, user }: MoviesListProps) {
                         {s.charAt(0) + s.slice(1).toLowerCase()}
                       </DropdownMenuItem>
                     )
-                  )}
+                  )} */}
+                  {Object.values(MovieStatus).map((s) => (
+                    <DropdownMenuItem
+                      key={s}
+                      className="text-muted-foreground w-full cursor-pointer"
+                      onClick={() => changeStatus(movie, s)}
+                    >
+                      {getStatusBadgeIcon(s)}
+                      {s.charAt(0) + s.slice(1).toLowerCase()}
+                    </DropdownMenuItem>
+                  ))}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

@@ -2,7 +2,7 @@
 
 // Necessary modules
 import { authClient } from "@/lib/auth-client";
-import { LogOut, Settings, User, UserRound } from "lucide-react";
+import { LogOut, Settings, UserRound } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

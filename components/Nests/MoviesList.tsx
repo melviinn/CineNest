@@ -1,14 +1,18 @@
 "use client";
 
 import {
-  CheckCircleIcon,
+  changeMovieStatusAction,
+  ChangeMovieStatusParams,
+} from "@/app/data/nests/movies/change-movie-status";
+import {
   Film,
   TicketCheck,
   TicketMinus,
   TicketSlash,
   TicketX,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Badge } from "../ui/badge";
 import {
   DropdownMenu,
@@ -20,48 +24,56 @@ import {
 type MoviesListProps = {
   movies: any[];
   nestId: number;
+  user: any;
 };
 
-const BadgeSuccess = () => {
-  return (
-    <Badge
-      variant="outline"
-      className="rounded-sm border-green-600 text-green-600 dark:border-green-400 dark:text-green-400 [a&]:hover:bg-green-600/10 [a&]:hover:text-green-600/90 dark:[a&]:hover:bg-green-400/10 dark:[a&]:hover:text-green-400/90"
-    >
-      <CheckCircleIcon className="size-3" />
-      Successful
-    </Badge>
-  );
-};
-
-export function MoviesList({ movies, nestId }: MoviesListProps) {
+export function MoviesList({ movies, nestId, user }: MoviesListProps) {
   const [moviesData, setMoviesData] = useState(movies);
 
-  useEffect(() => {
-    setMoviesData(movies);
-  }, [movies]);
+  const getToastMessage = (status: string, title: string) => {
+    switch (status) {
+      case "WATCHED":
+        return `You watched ${title}`;
+      case "WATCHING":
+        return `You are watching ${title}`;
+      case "ABANDONED":
+        return `You abandoned ${title}`;
+      case "UNWATCHED":
+        return `You marked ${title} as unwatched`;
+      default:
+        return `Status updated for ${title}`;
+    }
+  };
 
   const changeStatus = async (movie: any, newStatus: string) => {
     try {
-      const res = await fetch(
-        `/api/nests/${nestId}/movies/${movie.nestMovieId}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ newStatus }),
-        }
-      );
+      const data = await changeMovieStatusAction({
+        nestId,
+        nestMovieId: movie.nestMovieId,
+        userId: user.id,
+        newStatus: newStatus as ChangeMovieStatusParams["newStatus"],
+      });
+    } catch (error) {
+      toast.error("Error changing movie status", { position: "top-center" });
+    } finally {
+      const currentStatus = movie.status?.status || "UNWATCHED";
 
-      const updatedMovie = await res.json();
-      setMoviesData((prev) =>
-        prev.map((m) =>
-          m.nestMovieId === updatedMovie.id
-            ? { ...m, status: updatedMovie.status }
+      // Si le status est identique, ne rien faire
+      if (currentStatus === newStatus) return;
+
+      setMoviesData((prevMovies) =>
+        prevMovies.map((m) =>
+          m.id === movie.id
+            ? {
+                ...m,
+                status: { ...m.status, status: newStatus },
+              }
             : m
         )
       );
-    } catch (error) {
-      console.error("Erreur lors du changement de statut:", error);
+      toast.info(getToastMessage(newStatus, movie.title), {
+        position: "top-center",
+      });
     }
   };
 
@@ -83,7 +95,7 @@ export function MoviesList({ movies, nestId }: MoviesListProps) {
   function getStatusBadgeIcon(status: string) {
     switch (status) {
       case "WATCHED":
-        return <TicketCheck size={40} className="h-20 w-20" />;
+        return <TicketCheck />;
       case "ABANDONED":
         return <TicketX />;
       case "WATCHING":
@@ -95,45 +107,56 @@ export function MoviesList({ movies, nestId }: MoviesListProps) {
     }
   }
 
+  const getStatus = (movie: any) => {
+    console.log("User status in MoviesList:", movie.userStatus?.status);
+    return movie.status?.status || "UNWATCHED";
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {moviesData
         .sort((a, b) => a.id - b.id)
-        .map((movie: any) => (
-          <div
-            key={movie.id}
-            className="bg-card border-border hover:border-primary/30 hover:shadow-primary/5 group relative flex items-center gap-3 rounded-xl border p-4 transition-all duration-300 hover:shadow-lg"
-          >
-            <div className="bg-muted group-hover:bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
-              <Film className="text-muted-foreground group-hover:text-primary h-5 w-5 transition-colors" />
-            </div>
-            <p className="text-card-foreground font-medium">{movie.title}</p>
-            <div className="absolute top-1/2 right-10 -translate-y-1/2">
+        .map((movie: any) => {
+          const status = getStatus(movie);
+          return (
+            <div
+              key={movie.id}
+              className="bg-card border-border hover:border-primary/30 hover:shadow-primary/5 flex w-full items-center justify-between gap-3 rounded-lg p-3 transition-all duration-300 hover:shadow-lg"
+            >
+              <div className="bg-muted group-hover:bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
+                <Film className="text-muted-foreground group-hover:text-primary h-5 w-5 transition-colors" />
+              </div>
+
+              <p className="text-card-foreground flex-1 truncate font-medium">
+                {movie.title}
+              </p>
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild className="cursor-pointer">
-                  <Badge className={statusButtonClass(movie.status)}>
-                    {getStatusBadgeIcon(movie.status)}
-                    {movie.status.toUpperCase().charAt(0) +
-                      movie.status.slice(1).toLowerCase()}
+                  <Badge className={statusButtonClass(status)}>
+                    {getStatusBadgeIcon(status)}
+                    {status.charAt(0) + status.slice(1).toLowerCase()}
                   </Badge>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent align="end">
                   {["WATCHED", "WATCHING", "ABANDONED", "UNWATCHED"].map(
-                    (status) => (
+                    (s) => (
                       <DropdownMenuItem
-                        key={status}
+                        key={s}
                         className="text-muted-foreground w-full cursor-pointer"
-                        onClick={() => changeStatus(movie, status)}
+                        onClick={() => changeStatus(movie, s)}
                       >
-                        {status.charAt(0) + status.slice(1).toLowerCase()}
+                        {getStatusBadgeIcon(s)}
+                        {s.charAt(0) + s.slice(1).toLowerCase()}
                       </DropdownMenuItem>
                     )
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-          </div>
-        ))}
+          );
+        })}
     </div>
   );
 }

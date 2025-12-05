@@ -42,7 +42,6 @@ export type NestMovieMinAggregateOutputType = {
   id: number | null
   nestId: number | null
   movieId: number | null
-  status: $Enums.MovieStatus | null
   addedAt: Date | null
 }
 
@@ -50,7 +49,6 @@ export type NestMovieMaxAggregateOutputType = {
   id: number | null
   nestId: number | null
   movieId: number | null
-  status: $Enums.MovieStatus | null
   addedAt: Date | null
 }
 
@@ -58,7 +56,6 @@ export type NestMovieCountAggregateOutputType = {
   id: number
   nestId: number
   movieId: number
-  status: number
   addedAt: number
   _all: number
 }
@@ -80,7 +77,6 @@ export type NestMovieMinAggregateInputType = {
   id?: true
   nestId?: true
   movieId?: true
-  status?: true
   addedAt?: true
 }
 
@@ -88,7 +84,6 @@ export type NestMovieMaxAggregateInputType = {
   id?: true
   nestId?: true
   movieId?: true
-  status?: true
   addedAt?: true
 }
 
@@ -96,7 +91,6 @@ export type NestMovieCountAggregateInputType = {
   id?: true
   nestId?: true
   movieId?: true
-  status?: true
   addedAt?: true
   _all?: true
 }
@@ -191,7 +185,6 @@ export type NestMovieGroupByOutputType = {
   id: number
   nestId: number
   movieId: number
-  status: $Enums.MovieStatus
   addedAt: Date
   _count: NestMovieCountAggregateOutputType | null
   _avg: NestMovieAvgAggregateOutputType | null
@@ -222,20 +215,20 @@ export type NestMovieWhereInput = {
   id?: Prisma.IntFilter<"NestMovie"> | number
   nestId?: Prisma.IntFilter<"NestMovie"> | number
   movieId?: Prisma.IntFilter<"NestMovie"> | number
-  status?: Prisma.EnumMovieStatusFilter<"NestMovie"> | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFilter<"NestMovie"> | Date | string
   nest?: Prisma.XOR<Prisma.NestScalarRelationFilter, Prisma.NestWhereInput>
   movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  status?: Prisma.NestMovieStatusListRelationFilter
 }
 
 export type NestMovieOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nestId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
   nest?: Prisma.NestOrderByWithRelationInput
   movie?: Prisma.MovieOrderByWithRelationInput
+  status?: Prisma.NestMovieStatusOrderByRelationAggregateInput
 }
 
 export type NestMovieWhereUniqueInput = Prisma.AtLeast<{
@@ -245,17 +238,16 @@ export type NestMovieWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.NestMovieWhereInput | Prisma.NestMovieWhereInput[]
   nestId?: Prisma.IntFilter<"NestMovie"> | number
   movieId?: Prisma.IntFilter<"NestMovie"> | number
-  status?: Prisma.EnumMovieStatusFilter<"NestMovie"> | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFilter<"NestMovie"> | Date | string
   nest?: Prisma.XOR<Prisma.NestScalarRelationFilter, Prisma.NestWhereInput>
   movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  status?: Prisma.NestMovieStatusListRelationFilter
 }, "id">
 
 export type NestMovieOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nestId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
   _count?: Prisma.NestMovieCountOrderByAggregateInput
   _avg?: Prisma.NestMovieAvgOrderByAggregateInput
@@ -271,50 +263,47 @@ export type NestMovieScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"NestMovie"> | number
   nestId?: Prisma.IntWithAggregatesFilter<"NestMovie"> | number
   movieId?: Prisma.IntWithAggregatesFilter<"NestMovie"> | number
-  status?: Prisma.EnumMovieStatusWithAggregatesFilter<"NestMovie"> | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"NestMovie"> | Date | string
 }
 
 export type NestMovieCreateInput = {
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
   nest: Prisma.NestCreateNestedOneWithoutMoviesInput
   movie: Prisma.MovieCreateNestedOneWithoutNestMovieInput
+  status?: Prisma.NestMovieStatusCreateNestedManyWithoutNestMovieInput
 }
 
 export type NestMovieUncheckedCreateInput = {
   id?: number
   nestId: number
   movieId: number
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
+  status?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutNestMovieInput
 }
 
 export type NestMovieUpdateInput = {
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nest?: Prisma.NestUpdateOneRequiredWithoutMoviesNestedInput
   movie?: Prisma.MovieUpdateOneRequiredWithoutNestMovieNestedInput
+  status?: Prisma.NestMovieStatusUpdateManyWithoutNestMovieNestedInput
 }
 
 export type NestMovieUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nestId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutNestMovieNestedInput
 }
 
 export type NestMovieCreateManyInput = {
   id?: number
   nestId: number
   movieId: number
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
 }
 
 export type NestMovieUpdateManyMutationInput = {
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -322,7 +311,6 @@ export type NestMovieUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nestId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -340,7 +328,6 @@ export type NestMovieCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nestId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
 }
 
@@ -354,7 +341,6 @@ export type NestMovieMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nestId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
 }
 
@@ -362,7 +348,6 @@ export type NestMovieMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nestId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
 }
 
@@ -370,6 +355,11 @@ export type NestMovieSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nestId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
+}
+
+export type NestMovieScalarRelationFilter = {
+  is?: Prisma.NestMovieWhereInput
+  isNot?: Prisma.NestMovieWhereInput
 }
 
 export type NestMovieCreateNestedManyWithoutMovieInput = {
@@ -456,21 +446,31 @@ export type NestMovieUncheckedUpdateManyWithoutNestNestedInput = {
   deleteMany?: Prisma.NestMovieScalarWhereInput | Prisma.NestMovieScalarWhereInput[]
 }
 
-export type EnumMovieStatusFieldUpdateOperationsInput = {
-  set?: $Enums.MovieStatus
+export type NestMovieCreateNestedOneWithoutStatusInput = {
+  create?: Prisma.XOR<Prisma.NestMovieCreateWithoutStatusInput, Prisma.NestMovieUncheckedCreateWithoutStatusInput>
+  connectOrCreate?: Prisma.NestMovieCreateOrConnectWithoutStatusInput
+  connect?: Prisma.NestMovieWhereUniqueInput
+}
+
+export type NestMovieUpdateOneRequiredWithoutStatusNestedInput = {
+  create?: Prisma.XOR<Prisma.NestMovieCreateWithoutStatusInput, Prisma.NestMovieUncheckedCreateWithoutStatusInput>
+  connectOrCreate?: Prisma.NestMovieCreateOrConnectWithoutStatusInput
+  upsert?: Prisma.NestMovieUpsertWithoutStatusInput
+  connect?: Prisma.NestMovieWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.NestMovieUpdateToOneWithWhereWithoutStatusInput, Prisma.NestMovieUpdateWithoutStatusInput>, Prisma.NestMovieUncheckedUpdateWithoutStatusInput>
 }
 
 export type NestMovieCreateWithoutMovieInput = {
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
   nest: Prisma.NestCreateNestedOneWithoutMoviesInput
+  status?: Prisma.NestMovieStatusCreateNestedManyWithoutNestMovieInput
 }
 
 export type NestMovieUncheckedCreateWithoutMovieInput = {
   id?: number
   nestId: number
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
+  status?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutNestMovieInput
 }
 
 export type NestMovieCreateOrConnectWithoutMovieInput = {
@@ -506,21 +506,20 @@ export type NestMovieScalarWhereInput = {
   id?: Prisma.IntFilter<"NestMovie"> | number
   nestId?: Prisma.IntFilter<"NestMovie"> | number
   movieId?: Prisma.IntFilter<"NestMovie"> | number
-  status?: Prisma.EnumMovieStatusFilter<"NestMovie"> | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFilter<"NestMovie"> | Date | string
 }
 
 export type NestMovieCreateWithoutNestInput = {
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
   movie: Prisma.MovieCreateNestedOneWithoutNestMovieInput
+  status?: Prisma.NestMovieStatusCreateNestedManyWithoutNestMovieInput
 }
 
 export type NestMovieUncheckedCreateWithoutNestInput = {
   id?: number
   movieId: number
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
+  status?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutNestMovieInput
 }
 
 export type NestMovieCreateOrConnectWithoutNestInput = {
@@ -549,77 +548,144 @@ export type NestMovieUpdateManyWithWhereWithoutNestInput = {
   data: Prisma.XOR<Prisma.NestMovieUpdateManyMutationInput, Prisma.NestMovieUncheckedUpdateManyWithoutNestInput>
 }
 
+export type NestMovieCreateWithoutStatusInput = {
+  addedAt?: Date | string
+  nest: Prisma.NestCreateNestedOneWithoutMoviesInput
+  movie: Prisma.MovieCreateNestedOneWithoutNestMovieInput
+}
+
+export type NestMovieUncheckedCreateWithoutStatusInput = {
+  id?: number
+  nestId: number
+  movieId: number
+  addedAt?: Date | string
+}
+
+export type NestMovieCreateOrConnectWithoutStatusInput = {
+  where: Prisma.NestMovieWhereUniqueInput
+  create: Prisma.XOR<Prisma.NestMovieCreateWithoutStatusInput, Prisma.NestMovieUncheckedCreateWithoutStatusInput>
+}
+
+export type NestMovieUpsertWithoutStatusInput = {
+  update: Prisma.XOR<Prisma.NestMovieUpdateWithoutStatusInput, Prisma.NestMovieUncheckedUpdateWithoutStatusInput>
+  create: Prisma.XOR<Prisma.NestMovieCreateWithoutStatusInput, Prisma.NestMovieUncheckedCreateWithoutStatusInput>
+  where?: Prisma.NestMovieWhereInput
+}
+
+export type NestMovieUpdateToOneWithWhereWithoutStatusInput = {
+  where?: Prisma.NestMovieWhereInput
+  data: Prisma.XOR<Prisma.NestMovieUpdateWithoutStatusInput, Prisma.NestMovieUncheckedUpdateWithoutStatusInput>
+}
+
+export type NestMovieUpdateWithoutStatusInput = {
+  addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nest?: Prisma.NestUpdateOneRequiredWithoutMoviesNestedInput
+  movie?: Prisma.MovieUpdateOneRequiredWithoutNestMovieNestedInput
+}
+
+export type NestMovieUncheckedUpdateWithoutStatusInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nestId?: Prisma.IntFieldUpdateOperationsInput | number
+  movieId?: Prisma.IntFieldUpdateOperationsInput | number
+  addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type NestMovieCreateManyMovieInput = {
   id?: number
   nestId: number
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
 }
 
 export type NestMovieUpdateWithoutMovieInput = {
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nest?: Prisma.NestUpdateOneRequiredWithoutMoviesNestedInput
+  status?: Prisma.NestMovieStatusUpdateManyWithoutNestMovieNestedInput
 }
 
 export type NestMovieUncheckedUpdateWithoutMovieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nestId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutNestMovieNestedInput
 }
 
 export type NestMovieUncheckedUpdateManyWithoutMovieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nestId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type NestMovieCreateManyNestInput = {
   id?: number
   movieId: number
-  status?: $Enums.MovieStatus
   addedAt?: Date | string
 }
 
 export type NestMovieUpdateWithoutNestInput = {
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   movie?: Prisma.MovieUpdateOneRequiredWithoutNestMovieNestedInput
+  status?: Prisma.NestMovieStatusUpdateManyWithoutNestMovieNestedInput
 }
 
 export type NestMovieUncheckedUpdateWithoutNestInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutNestMovieNestedInput
 }
 
 export type NestMovieUncheckedUpdateManyWithoutNestInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumMovieStatusFieldUpdateOperationsInput | $Enums.MovieStatus
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type NestMovieCountOutputType
+ */
+
+export type NestMovieCountOutputType = {
+  status: number
+}
+
+export type NestMovieCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  status?: boolean | NestMovieCountOutputTypeCountStatusArgs
+}
+
+/**
+ * NestMovieCountOutputType without action
+ */
+export type NestMovieCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NestMovieCountOutputType
+   */
+  select?: Prisma.NestMovieCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * NestMovieCountOutputType without action
+ */
+export type NestMovieCountOutputTypeCountStatusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NestMovieStatusWhereInput
+}
 
 
 export type NestMovieSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nestId?: boolean
   movieId?: boolean
-  status?: boolean
   addedAt?: boolean
   nest?: boolean | Prisma.NestDefaultArgs<ExtArgs>
   movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  status?: boolean | Prisma.NestMovie$statusArgs<ExtArgs>
+  _count?: boolean | Prisma.NestMovieCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["nestMovie"]>
 
 export type NestMovieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nestId?: boolean
   movieId?: boolean
-  status?: boolean
   addedAt?: boolean
   nest?: boolean | Prisma.NestDefaultArgs<ExtArgs>
   movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
@@ -629,7 +695,6 @@ export type NestMovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   nestId?: boolean
   movieId?: boolean
-  status?: boolean
   addedAt?: boolean
   nest?: boolean | Prisma.NestDefaultArgs<ExtArgs>
   movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
@@ -639,14 +704,15 @@ export type NestMovieSelectScalar = {
   id?: boolean
   nestId?: boolean
   movieId?: boolean
-  status?: boolean
   addedAt?: boolean
 }
 
-export type NestMovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nestId" | "movieId" | "status" | "addedAt", ExtArgs["result"]["nestMovie"]>
+export type NestMovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nestId" | "movieId" | "addedAt", ExtArgs["result"]["nestMovie"]>
 export type NestMovieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nest?: boolean | Prisma.NestDefaultArgs<ExtArgs>
   movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  status?: boolean | Prisma.NestMovie$statusArgs<ExtArgs>
+  _count?: boolean | Prisma.NestMovieCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type NestMovieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nest?: boolean | Prisma.NestDefaultArgs<ExtArgs>
@@ -662,12 +728,12 @@ export type $NestMoviePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     nest: Prisma.$NestPayload<ExtArgs>
     movie: Prisma.$MoviePayload<ExtArgs>
+    status: Prisma.$NestMovieStatusPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     nestId: number
     movieId: number
-    status: $Enums.MovieStatus
     addedAt: Date
   }, ExtArgs["result"]["nestMovie"]>
   composites: {}
@@ -1065,6 +1131,7 @@ export interface Prisma__NestMovieClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   nest<T extends Prisma.NestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.NestDefaultArgs<ExtArgs>>): Prisma.Prisma__NestClient<runtime.Types.Result.GetResult<Prisma.$NestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  status<T extends Prisma.NestMovie$statusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.NestMovie$statusArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NestMovieStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1097,7 +1164,6 @@ export interface NestMovieFieldRefs {
   readonly id: Prisma.FieldRef<"NestMovie", 'Int'>
   readonly nestId: Prisma.FieldRef<"NestMovie", 'Int'>
   readonly movieId: Prisma.FieldRef<"NestMovie", 'Int'>
-  readonly status: Prisma.FieldRef<"NestMovie", 'MovieStatus'>
   readonly addedAt: Prisma.FieldRef<"NestMovie", 'DateTime'>
 }
     
@@ -1492,6 +1558,30 @@ export type NestMovieDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many NestMovies to delete.
    */
   limit?: number
+}
+
+/**
+ * NestMovie.status
+ */
+export type NestMovie$statusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NestMovieStatus
+   */
+  select?: Prisma.NestMovieStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NestMovieStatus
+   */
+  omit?: Prisma.NestMovieStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NestMovieStatusInclude<ExtArgs> | null
+  where?: Prisma.NestMovieStatusWhereInput
+  orderBy?: Prisma.NestMovieStatusOrderByWithRelationInput | Prisma.NestMovieStatusOrderByWithRelationInput[]
+  cursor?: Prisma.NestMovieStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NestMovieStatusScalarFieldEnum | Prisma.NestMovieStatusScalarFieldEnum[]
 }
 
 /**

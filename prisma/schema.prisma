@@ -34,6 +34,8 @@ model User {
   sessions    Session[]
   accounts    Account[]
 
+  movieStatuses NestMovieStatus[]
+
   @@map("user")
 }
 
@@ -89,7 +91,7 @@ model NestMovie {
   nestId  Int
   movie   Movie       @relation(fields: [movieId], references: [id])
   movieId Int
-  status  MovieStatus @default(UNWATCHED)
+  status  NestMovieStatus[]
   addedAt DateTime    @default(now())
 }
 
@@ -98,6 +100,21 @@ enum MovieStatus {
   WATCHING
   WATCHED
   ABANDONED
+}
+
+model NestMovieStatus {
+  id        Int         @id @default(autoincrement())
+
+  nestMovie NestMovie   @relation(fields: [nestMovieId], references: [id], onDelete: Cascade)
+  nestMovieId Int
+
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  status    MovieStatus @default(UNWATCHED)
+  updatedAt DateTime    @default(now()) @updatedAt
+
+  @@unique([nestMovieId, userId])
 }
 
 model NestShare {

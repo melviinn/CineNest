@@ -48,6 +48,11 @@ export type Nest = Prisma.NestModel
  */
 export type NestMovie = Prisma.NestMovieModel
 /**
+ * Model NestMovieStatus
+ * 
+ */
+export type NestMovieStatus = Prisma.NestMovieStatusModel
+/**
  * Model NestShare
  * 
  */

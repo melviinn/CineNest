@@ -16,7 +16,7 @@ export default async function NestPage({
     throw new Error("Invalid nest id");
   }
 
-  const { nest, nestMovies, nestFriends } = await getNestDetails(nestId);
+  const { nest, nestMovies, nestFriends } = await getNestDetails(nestId, user.id);
   const isOwner = nest?.ownerId === user.id;
 
   return (
@@ -25,6 +25,7 @@ export default async function NestPage({
       initialNest={nest}
       initialMovies={nestMovies}
       initialFriends={nestFriends}
+      user={user}
       isOwner={isOwner}
     />
   );

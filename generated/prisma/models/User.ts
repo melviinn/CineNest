@@ -228,6 +228,7 @@ export type UserWhereInput = {
   sharedNests?: Prisma.NestShareListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
+  movieStatuses?: Prisma.NestMovieStatusListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -247,6 +248,7 @@ export type UserOrderByWithRelationInput = {
   sharedNests?: Prisma.NestShareOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  movieStatuses?: Prisma.NestMovieStatusOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -269,6 +271,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sharedNests?: Prisma.NestShareListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
+  movieStatuses?: Prisma.NestMovieStatusListRelationFilter
 }, "id" | "email" | "name">
 
 export type UserOrderByWithAggregationInput = {
@@ -320,6 +323,7 @@ export type UserCreateInput = {
   sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -339,6 +343,7 @@ export type UserUncheckedCreateInput = {
   sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -358,6 +363,7 @@ export type UserUpdateInput = {
   sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -377,6 +383,7 @@ export type UserUncheckedUpdateInput = {
   sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -520,6 +527,20 @@ export type UserUpdateOneRequiredWithoutNestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNestsInput, Prisma.UserUpdateWithoutNestsInput>, Prisma.UserUncheckedUpdateWithoutNestsInput>
 }
 
+export type UserCreateNestedOneWithoutMovieStatusesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMovieStatusesInput, Prisma.UserUncheckedCreateWithoutMovieStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMovieStatusesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMovieStatusesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMovieStatusesInput, Prisma.UserUncheckedCreateWithoutMovieStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMovieStatusesInput
+  upsert?: Prisma.UserUpsertWithoutMovieStatusesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMovieStatusesInput, Prisma.UserUpdateWithoutMovieStatusesInput>, Prisma.UserUncheckedUpdateWithoutMovieStatusesInput>
+}
+
 export type UserCreateNestedOneWithoutSharedNestsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSharedNestsInput, Prisma.UserUncheckedCreateWithoutSharedNestsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSharedNestsInput
@@ -578,6 +599,7 @@ export type UserCreateWithoutFriendsInput = {
   sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendsInput = {
@@ -596,6 +618,7 @@ export type UserUncheckedCreateWithoutFriendsInput = {
   sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendsInput = {
@@ -619,6 +642,7 @@ export type UserCreateWithoutFriendsOfInput = {
   sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendsOfInput = {
@@ -637,6 +661,7 @@ export type UserUncheckedCreateWithoutFriendsOfInput = {
   sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendsOfInput = {
@@ -671,6 +696,7 @@ export type UserUpdateWithoutFriendsInput = {
   sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendsInput = {
@@ -689,6 +715,7 @@ export type UserUncheckedUpdateWithoutFriendsInput = {
   sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFriendsOfInput = {
@@ -718,6 +745,7 @@ export type UserUpdateWithoutFriendsOfInput = {
   sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendsOfInput = {
@@ -736,6 +764,7 @@ export type UserUncheckedUpdateWithoutFriendsOfInput = {
   sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNestsInput = {
@@ -754,6 +783,7 @@ export type UserCreateWithoutNestsInput = {
   sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNestsInput = {
@@ -772,6 +802,7 @@ export type UserUncheckedCreateWithoutNestsInput = {
   sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNestsInput = {
@@ -806,6 +837,7 @@ export type UserUpdateWithoutNestsInput = {
   sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNestsInput = {
@@ -821,6 +853,99 @@ export type UserUncheckedUpdateWithoutNestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   friends?: Prisma.FriendUncheckedUpdateManyWithoutUserNestedInput
   friendsOf?: Prisma.FriendUncheckedUpdateManyWithoutFriendNestedInput
+  sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMovieStatusesInput = {
+  id?: string
+  createdAt?: Date | string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  firstName?: string | null
+  lastName?: string | null
+  password?: string | null
+  image?: string | null
+  updatedAt?: Date | string
+  friends?: Prisma.FriendCreateNestedManyWithoutUserInput
+  friendsOf?: Prisma.FriendCreateNestedManyWithoutFriendInput
+  nests?: Prisma.NestCreateNestedManyWithoutOwnerInput
+  sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMovieStatusesInput = {
+  id?: string
+  createdAt?: Date | string
+  email: string
+  emailVerified?: boolean
+  name?: string | null
+  firstName?: string | null
+  lastName?: string | null
+  password?: string | null
+  image?: string | null
+  updatedAt?: Date | string
+  friends?: Prisma.FriendUncheckedCreateNestedManyWithoutUserInput
+  friendsOf?: Prisma.FriendUncheckedCreateNestedManyWithoutFriendInput
+  nests?: Prisma.NestUncheckedCreateNestedManyWithoutOwnerInput
+  sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMovieStatusesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMovieStatusesInput, Prisma.UserUncheckedCreateWithoutMovieStatusesInput>
+}
+
+export type UserUpsertWithoutMovieStatusesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMovieStatusesInput, Prisma.UserUncheckedUpdateWithoutMovieStatusesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMovieStatusesInput, Prisma.UserUncheckedCreateWithoutMovieStatusesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMovieStatusesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMovieStatusesInput, Prisma.UserUncheckedUpdateWithoutMovieStatusesInput>
+}
+
+export type UserUpdateWithoutMovieStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  friends?: Prisma.FriendUpdateManyWithoutUserNestedInput
+  friendsOf?: Prisma.FriendUpdateManyWithoutFriendNestedInput
+  nests?: Prisma.NestUpdateManyWithoutOwnerNestedInput
+  sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMovieStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  friends?: Prisma.FriendUncheckedUpdateManyWithoutUserNestedInput
+  friendsOf?: Prisma.FriendUncheckedUpdateManyWithoutFriendNestedInput
+  nests?: Prisma.NestUncheckedUpdateManyWithoutOwnerNestedInput
   sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -842,6 +967,7 @@ export type UserCreateWithoutSharedNestsInput = {
   nests?: Prisma.NestCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSharedNestsInput = {
@@ -860,6 +986,7 @@ export type UserUncheckedCreateWithoutSharedNestsInput = {
   nests?: Prisma.NestUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSharedNestsInput = {
@@ -894,6 +1021,7 @@ export type UserUpdateWithoutSharedNestsInput = {
   nests?: Prisma.NestUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSharedNestsInput = {
@@ -912,6 +1040,7 @@ export type UserUncheckedUpdateWithoutSharedNestsInput = {
   nests?: Prisma.NestUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -930,6 +1059,7 @@ export type UserCreateWithoutSessionsInput = {
   nests?: Prisma.NestCreateNestedManyWithoutOwnerInput
   sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -948,6 +1078,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   nests?: Prisma.NestUncheckedCreateNestedManyWithoutOwnerInput
   sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -982,6 +1113,7 @@ export type UserUpdateWithoutSessionsInput = {
   nests?: Prisma.NestUpdateManyWithoutOwnerNestedInput
   sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1000,6 +1132,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   nests?: Prisma.NestUncheckedUpdateManyWithoutOwnerNestedInput
   sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1018,6 +1151,7 @@ export type UserCreateWithoutAccountsInput = {
   nests?: Prisma.NestCreateNestedManyWithoutOwnerInput
   sharedNests?: Prisma.NestShareCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1036,6 +1170,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   nests?: Prisma.NestUncheckedCreateNestedManyWithoutOwnerInput
   sharedNests?: Prisma.NestShareUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1070,6 +1205,7 @@ export type UserUpdateWithoutAccountsInput = {
   nests?: Prisma.NestUpdateManyWithoutOwnerNestedInput
   sharedNests?: Prisma.NestShareUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1088,6 +1224,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   nests?: Prisma.NestUncheckedUpdateManyWithoutOwnerNestedInput
   sharedNests?: Prisma.NestShareUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  movieStatuses?: Prisma.NestMovieStatusUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1102,6 +1239,7 @@ export type UserCountOutputType = {
   sharedNests: number
   sessions: number
   accounts: number
+  movieStatuses: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1111,6 +1249,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sharedNests?: boolean | UserCountOutputTypeCountSharedNestsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  movieStatuses?: boolean | UserCountOutputTypeCountMovieStatusesArgs
 }
 
 /**
@@ -1165,6 +1304,13 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AccountWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMovieStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NestMovieStatusWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1183,6 +1329,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sharedNests?: boolean | Prisma.User$sharedNestsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  movieStatuses?: boolean | Prisma.User$movieStatusesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1233,6 +1380,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sharedNests?: boolean | Prisma.User$sharedNestsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  movieStatuses?: boolean | Prisma.User$movieStatusesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1247,6 +1395,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sharedNests: Prisma.$NestSharePayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    movieStatuses: Prisma.$NestMovieStatusPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1659,6 +1808,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sharedNests<T extends Prisma.User$sharedNestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sharedNestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NestSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  movieStatuses<T extends Prisma.User$movieStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$movieStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NestMovieStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2227,6 +2377,30 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+}
+
+/**
+ * User.movieStatuses
+ */
+export type User$movieStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NestMovieStatus
+   */
+  select?: Prisma.NestMovieStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NestMovieStatus
+   */
+  omit?: Prisma.NestMovieStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NestMovieStatusInclude<ExtArgs> | null
+  where?: Prisma.NestMovieStatusWhereInput
+  orderBy?: Prisma.NestMovieStatusOrderByWithRelationInput | Prisma.NestMovieStatusOrderByWithRelationInput[]
+  cursor?: Prisma.NestMovieStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NestMovieStatusScalarFieldEnum | Prisma.NestMovieStatusScalarFieldEnum[]
 }
 
 /**

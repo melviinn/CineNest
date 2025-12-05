@@ -4,9 +4,7 @@
 import { signUp } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 // UI components
 import LoadingButton from "@/components/LoadingButton";
@@ -27,29 +25,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signUpFormSchema, SignUpFormType } from "@/lib/zod/zodAuthSchemas";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 // Zod schema for sign-up form validation
-const signUpFormSchema = z
-  .object({
-    name: z.string().min(1, "Name is required"),
-    email: z.email({ message: "Please enter a valid email address" }),
-    password: z.string().min(1, "Password is required"),
-    passwordConfirmation: z
-      .string()
-      .min(1, "Password confirmation is required"),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords do not match",
-    path: ["passwordConfirmation"],
-  });
-
-type SignUpFormData = z.infer<typeof signUpFormSchema>;
 
 export function SignUpForm() {
-  const router = useRouter();
-
-  const form = useForm<SignUpFormData>({
+  const form = useForm<SignUpFormType>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       email: "",
@@ -59,9 +42,24 @@ export function SignUpForm() {
     },
   });
 
-  const { setError, clearErrors, formState } = form;
+  const { setError, formState } = form;
 
-  async function onSubmit({ email, password, name }: SignUpFormData) {
+  const router = useRouter();
+
+  async function onSubmit({ email, password, name }: SignUpFormType) {
+    toast.promise(
+      new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000);
+      }),
+      {
+        loading: "Creating your account...",
+        success: "Account created successfully!",
+        error: "Failed to create account.",
+        position: "top-center",
+      }
+    );
 
     const { error } = await signUp.email({
       email,
@@ -70,34 +68,14 @@ export function SignUpForm() {
     });
 
     if (error) {
-      // Détecte les erreurs serveur et les associe au champ correspondant
       if (error.message?.includes("email")) {
         setError("email", { message: "Email is already in use" });
-      } else {
-        toast.error(error.message || "Something went wrong.");
       }
       return;
     }
 
-    toast.success("Account created successfully!", { position: "top-center" });
     router.push("/home");
   }
-
-  // async function handleUsernameBlur(e: React.FocusEvent<HTMLInputElement>) {
-  //   const username = e.target.value;
-
-  //   if (!username) return;
-
-  //   // const { data: response, error } = await authClient.isUsernameAvailable({
-  //   //   username,
-  //   // });
-
-  //   // if (!response?.available) {
-  //   //   setError("username", { message: "Username is already taken" });
-  //   // } else {
-  //   //   clearErrors("username");
-  //   // }
-  // }
 
   const loading = form.formState.isSubmitting;
 

@@ -57,22 +57,31 @@ export function SignInForm() {
     setError(null);
     setLoading(true);
 
+    toast.promise(
+      new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000);
+      }),
+      {
+        loading: "Signing in...",
+        success: "Successfully signed in!",
+        error: "Failed to sign in.",
+        position: "top-center",
+      }
+    );
+
     const { error } = await signIn.email({
       email,
       password,
+      callbackURL: "/home",
     });
 
     setLoading(false);
 
     if (error) {
       setError(error.message || "Something went wrong.");
-      // if (error.status === 403) {
-      //   toast.error("Please verify your email before signing in.");
-      // }
       form.reset();
-    } else {
-      router.push("/home");
-      toast.success("Successfully signed in!", { position: "top-center" });
     }
   }
 
@@ -89,7 +98,9 @@ export function SignInForm() {
     setLoading(false);
 
     if (error) {
-      toast.error("Social sign-in failed." + (error.message || ""), { position: "top-center" });
+      toast.error("Social sign-in failed." + (error.message || ""), {
+        position: "top-center",
+      });
       setError(error.message || "Something went wrong.");
     } else {
       toast.success("Successfully signed in!", { position: "top-center" });
@@ -118,8 +129,9 @@ export function SignInForm() {
                 <Image
                   src={GoogleIcon}
                   alt="google icon"
-                  width={18}
-                  height={18}
+                  width={20}
+                  height={20}
+                  className="mr-1"
                 ></Image>
                 Google
               </Button>

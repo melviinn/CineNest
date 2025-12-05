@@ -55,6 +55,7 @@ export const ModelName = {
   Category: 'Category',
   Nest: 'Nest',
   NestMovie: 'NestMovie',
+  NestMovieStatus: 'NestMovieStatus',
   NestShare: 'NestShare',
   Session: 'Session',
   Account: 'Account',
@@ -138,11 +139,21 @@ export const NestMovieScalarFieldEnum = {
   id: 'id',
   nestId: 'nestId',
   movieId: 'movieId',
-  status: 'status',
   addedAt: 'addedAt'
 } as const
 
 export type NestMovieScalarFieldEnum = (typeof NestMovieScalarFieldEnum)[keyof typeof NestMovieScalarFieldEnum]
+
+
+export const NestMovieStatusScalarFieldEnum = {
+  id: 'id',
+  nestMovieId: 'nestMovieId',
+  userId: 'userId',
+  status: 'status',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NestMovieStatusScalarFieldEnum = (typeof NestMovieStatusScalarFieldEnum)[keyof typeof NestMovieStatusScalarFieldEnum]
 
 
 export const NestShareScalarFieldEnum = {

@@ -16,6 +16,7 @@ type NestPageInfosProps = {
   initialNest: any;
   initialMovies: any[];
   initialFriends: any[];
+  user: any;
   isOwner: boolean;
 };
 
@@ -24,6 +25,7 @@ export default function NestPageInfos({
   initialNest,
   initialMovies,
   initialFriends,
+  user,
   isOwner,
 }: NestPageInfosProps) {
   const [nest] = useState(initialNest);
@@ -77,7 +79,7 @@ export default function NestPageInfos({
         <h2 className="mb-6 text-2xl font-semibold tracking-tight">
           Movies in this nest:
         </h2>
-        <MoviesList movies={movies} nestId={nestId} />
+        <MoviesList movies={movies} nestId={nestId} user={user} />
       </section>
 
       <section>

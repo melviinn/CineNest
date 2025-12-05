@@ -396,6 +396,7 @@ export const ModelName = {
   Category: 'Category',
   Nest: 'Nest',
   NestMovie: 'NestMovie',
+  NestMovieStatus: 'NestMovieStatus',
   NestShare: 'NestShare',
   Session: 'Session',
   Account: 'Account',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "friend" | "movie" | "category" | "nest" | "nestMovie" | "nestShare" | "session" | "account" | "verification"
+    modelProps: "user" | "friend" | "movie" | "category" | "nest" | "nestMovie" | "nestMovieStatus" | "nestShare" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -863,6 +864,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NestMovieStatus: {
+      payload: Prisma.$NestMovieStatusPayload<ExtArgs>
+      fields: Prisma.NestMovieStatusFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NestMovieStatusFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NestMovieStatusFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>
+        }
+        findFirst: {
+          args: Prisma.NestMovieStatusFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NestMovieStatusFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>
+        }
+        findMany: {
+          args: Prisma.NestMovieStatusFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>[]
+        }
+        create: {
+          args: Prisma.NestMovieStatusCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>
+        }
+        createMany: {
+          args: Prisma.NestMovieStatusCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NestMovieStatusCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>[]
+        }
+        delete: {
+          args: Prisma.NestMovieStatusDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>
+        }
+        update: {
+          args: Prisma.NestMovieStatusUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>
+        }
+        deleteMany: {
+          args: Prisma.NestMovieStatusDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NestMovieStatusUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NestMovieStatusUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>[]
+        }
+        upsert: {
+          args: Prisma.NestMovieStatusUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NestMovieStatusPayload>
+        }
+        aggregate: {
+          args: Prisma.NestMovieStatusAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNestMovieStatus>
+        }
+        groupBy: {
+          args: Prisma.NestMovieStatusGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NestMovieStatusGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NestMovieStatusCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NestMovieStatusCountAggregateOutputType> | number
+        }
+      }
+    }
     NestShare: {
       payload: Prisma.$NestSharePayload<ExtArgs>
       fields: Prisma.NestShareFieldRefs
@@ -1259,11 +1334,21 @@ export const NestMovieScalarFieldEnum = {
   id: 'id',
   nestId: 'nestId',
   movieId: 'movieId',
-  status: 'status',
   addedAt: 'addedAt'
 } as const
 
 export type NestMovieScalarFieldEnum = (typeof NestMovieScalarFieldEnum)[keyof typeof NestMovieScalarFieldEnum]
+
+
+export const NestMovieStatusScalarFieldEnum = {
+  id: 'id',
+  nestMovieId: 'nestMovieId',
+  userId: 'userId',
+  status: 'status',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NestMovieStatusScalarFieldEnum = (typeof NestMovieStatusScalarFieldEnum)[keyof typeof NestMovieStatusScalarFieldEnum]
 
 
 export const NestShareScalarFieldEnum = {
@@ -1535,6 +1620,7 @@ export type GlobalOmitConfig = {
   category?: Prisma.CategoryOmit
   nest?: Prisma.NestOmit
   nestMovie?: Prisma.NestMovieOmit
+  nestMovieStatus?: Prisma.NestMovieStatusOmit
   nestShare?: Prisma.NestShareOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

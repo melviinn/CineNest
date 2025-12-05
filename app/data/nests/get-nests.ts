@@ -68,13 +68,18 @@ export const getNests = async ({ user }: any) => {
   return { initialNests, sharedNests };
 };
 
-export const getNestDetails = async (nestId: number) => {
+export const getNestDetails = async (nestId: number, userId: string) => {
   const nest = await prisma.nest.findUnique({
     where: { id: nestId },
     include: {
       owner: true,
       movies: {
-        include: { movie: true },
+        include: {
+          movie: true,
+          status: {
+            where: { userId },
+          },
+        },
       },
       sharedWith: {
         include: { user: true },
@@ -85,12 +90,25 @@ export const getNestDetails = async (nestId: number) => {
   if (!nest) throw new Error("Nest not found");
 
   const nestMovies =
-    nest?.movies.map((nm) => ({
+    nest.movies.map((nm) => ({
       ...nm.movie,
-      status: nm.status,
-      nestMovieId: nm.id, // utile si besoin de modifier le status
+      nestMovieId: nm.id,
       addedAt: nm.addedAt,
+      status: nm.status[0] || { status: "UNWATCHED" }, // <-- ALWAYS VALID
+      watchedCount: nm.status.filter(s => s.status === "WATCHED").length, // nombre de collaborateurs qui ont vu ce film
     })) || [];
+
+    const nestMovies2 = nest.movies.map((nm) => {
+      const watchedCount = nm.status.filter(s => s.status === "WATCHED").length;
+
+      return {
+        ...nm.movie,
+        nestMovieId: nm.id,
+        addedAt: nm.addedAt,
+        userStatus: nm.status.find(s => s.userId === userId) || { status: "UNWATCHED" },
+        watchedCount,
+      };
+    });
 
   if (!nestMovies) throw new Error("Failed to fetch nest movies");
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { addMovieToNestAction } from "@/app/data/nests/add-movie";
+import { addMovieToNestAction } from "@/app/data/nests/movies/add-movie";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
